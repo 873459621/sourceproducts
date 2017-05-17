@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_menu"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true" >
+
+        <TextView
+            android:id="@+id/tv_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/bg_white"
+            android:drawableTop="@drawable/selector_home_icon"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="主页"
+            android:textColor="@drawable/selector_menu_text" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/bg_white"
+            android:drawableTop="@drawable/selector_category_icon"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="类目"
+            android:textColor="@drawable/selector_menu_text" />
+
+        <TextView
+            android:id="@+id/tv_shopcart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/bg_white"
+            android:drawableTop="@drawable/selector_shopcart_icon"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="购物车"
+            android:textColor="@drawable/selector_menu_text" />
+
+        <TextView
+            android:id="@+id/tv_me"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/bg_white"
+            android:drawableTop="@drawable/selector_me_icon"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="我"
+            android:textColor="@drawable/selector_menu_text" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ll_menu"
+        android:background="@color/bg_gray" />
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/v_line"
+        android:background="@color/bg_white" >
+    </FrameLayout>
+
+</RelativeLayout>
