@@ -28,7 +28,9 @@ public class MeFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.fragment_me, container, false);
+		
 		initUI();
+		
 		return mView;
 	}
 
@@ -55,6 +57,7 @@ public class MeFragment extends Fragment {
 			String username = SPUtils.getString(getActivity(),
 					ConstantValue.USERNAME, null);
 			tv_personal.setText("您好：" + username);
+			
 		} else {
 			tv_personal.setOnClickListener(new OnClickListener() {
 

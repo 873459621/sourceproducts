@@ -1,9 +1,5 @@
 package cn.edu.njupt.sourceproducts.activity;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import cn.edu.njupt.sourceproducts.R;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
-import cn.edu.njupt.sourceproducts.utils.StreamUtils;
+import cn.edu.njupt.sourceproducts.utils.HttpUtils;
 import cn.edu.njupt.sourceproducts.utils.ToastUtils;
 
 /**
@@ -85,45 +81,23 @@ public class RegistActivity extends Activity {
 
 			@Override
 			public void run() {
-				try {
-					String path = ConstantValue.IP_ADDRESS + "/RegistServlet";
-					String data = "username=" + mUsername + "&password="
-							+ mPassword + "&email=" + mEmail + "&phone="
-							+ mPhone;
+				String path = ConstantValue.IP_ADDRESS + "/RegistServlet";
+				String data = "username=" + mUsername + "&password="
+						+ mPassword + "&email=" + mEmail + "&phone=" + mPhone;
+				
+				String result = HttpUtils.getStringByPost(path, data);
+				
+				if (result.startsWith("user")) {
+					Message msg = Message.obtain();
+					msg.obj = "用户已经存在！";
+					mHandler.sendMessage(msg);
 
-					URL url = new URL(path);
-					HttpURLConnection conn = (HttpURLConnection) url
-							.openConnection();
+				} else if (result.startsWith("success")) {
+					Message msg = Message.obtain();
+					msg.obj = "注册成功！请登录";
+					mHandler.sendMessage(msg);
 
-					conn.setRequestMethod("POST");
-					conn.setConnectTimeout(5000);
-					conn.setRequestProperty("Content-Type",
-							"application/x-www-form-urlencoded");
-					conn.setRequestProperty("Content-Length", data.length()
-							+ "");
-					conn.setDoOutput(true);
-
-					conn.getOutputStream().write(data.getBytes());
-
-					if (conn.getResponseCode() == 200) {
-						InputStream in = conn.getInputStream();
-						String result = StreamUtils.streamToString(in);
-
-						if (result.startsWith("user")) {
-							Message msg = Message.obtain();
-							msg.obj = "用户已经存在！";
-							mHandler.sendMessage(msg);
-
-						} else if (result.startsWith("success")) {
-							Message msg = Message.obtain();
-							msg.obj = "注册成功！请登录";
-							mHandler.sendMessage(msg);
-
-							finish();
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+					finish();
 				}
 			}
 		}.start();

@@ -5,14 +5,8 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_red"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="用户注册"
-        android:textColor="@color/text_white"
-        android:textSize="20sp" />
+        style="@style/TitleStyle"
+        android:text="用户注册" />
 
     <LinearLayout
         android:layout_width="match_parent"

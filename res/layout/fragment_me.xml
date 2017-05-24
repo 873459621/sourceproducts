@@ -12,12 +12,10 @@
 
         <TextView
             android:id="@+id/tv_personal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextStyle"
             android:drawableLeft="@drawable/ic_personal"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
-            android:padding="10dp"
             android:text="登录/注册>"
             android:textColor="@color/text_white"
             android:textSize="20sp" />
@@ -47,10 +45,7 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
+    <View style="@style/HLineStyle" />
 
     <LinearLayout
         android:id="@+id/ll_orders"
@@ -59,36 +54,39 @@
 
         <TextView
             android:id="@+id/tv_non_payment"
+            style="@style/TextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="10dp"
             android:text="待付款"
-            android:textColor="@drawable/selector_order_text"
-            android:textSize="18sp" />
+            android:textColor="@drawable/selector_order_text" />
+
+        <TextView
+            android:id="@+id/tv_unfilled"
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="待fa货"
+            android:textColor="@drawable/selector_order_text" />
 
         <TextView
             android:id="@+id/tv_unrecrived"
+            style="@style/TextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="10dp"
             android:text="待收货"
-            android:textColor="@drawable/selector_order_text"
-            android:textSize="18sp" />
+            android:textColor="@drawable/selector_order_text" />
 
         <TextView
             android:id="@+id/tv_unvalued"
+            style="@style/TextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="10dp"
             android:text="待评价"
-            android:textColor="@drawable/selector_order_text"
-            android:textSize="18sp" />
+            android:textColor="@drawable/selector_order_text" />
     </LinearLayout>
 
     <View

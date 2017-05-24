@@ -38,20 +38,13 @@
 
             <TextView
                 android:id="@+id/tv_food1"
+                style="@style/TextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bg_white"
-                android:gravity="center"
-                android:padding="10dp"
                 android:text="食物"
-                android:textColor="@drawable/selector_category_text"
-                android:textSize="18sp" />
+                android:textColor="@drawable/selector_category_text" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/line_gray" />
+        <View style="@style/VLineStyle" />
 
         <ListView
             android:id="@+id/lv_products"

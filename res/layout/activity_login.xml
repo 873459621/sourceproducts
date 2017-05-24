@@ -5,14 +5,8 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_red"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="登录"
-        android:textColor="@color/text_white"
-        android:textSize="20sp" />
+        style="@style/TitleStyle"
+        android:text="登录" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,10 +31,7 @@
             android:inputType="text" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
+    <View style="@style/HLineStyle" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,10 +56,7 @@
             android:inputType="textPassword" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
+    <View style="@style/HLineStyle" />
 
     <Button
         android:id="@+id/btn_login"
@@ -84,10 +72,8 @@
 
     <TextView
         android:id="@+id/tv_regist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextStyle"
         android:layout_gravity="center_horizontal"
-        android:padding="10dp"
         android:text="新用户注册"
         android:textColor="@drawable/selector_clickable_text"
         android:textSize="15sp" />

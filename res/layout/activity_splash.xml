@@ -7,13 +7,11 @@
     tools:context="cn.edu.njupt.sourceproducts.activity.SplashActivity" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextStyle"
         android:layout_centerInParent="true"
         android:drawablePadding="5dp"
         android:drawableTop="@drawable/ic_launcher"
         android:text="知根知底，令人放心的农产品市场"
-        android:textColor="@color/text_red"
-        android:textSize="18sp" />
+        android:textColor="@color/text_red" />
 
 </RelativeLayout>

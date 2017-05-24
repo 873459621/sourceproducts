@@ -17,4 +17,38 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!-- 标题的样式 -->
+    <style name="TitleStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@color/bg_red</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- 垂直线的样式 -->
+    <style name="VLineStyle">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/line_gray</item>
+    </style>
+
+    <!-- 水平线的样式 -->
+    <style name="HLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/line_gray</item>
+    </style>
+
+    <!-- 文本的样式 -->
+    <style name="TextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

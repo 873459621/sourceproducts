@@ -1,9 +1,6 @@
 package cn.edu.njupt.sourceproducts.activity;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -20,8 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import cn.edu.njupt.sourceproducts.R;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
+import cn.edu.njupt.sourceproducts.utils.HttpUtils;
 import cn.edu.njupt.sourceproducts.utils.SPUtils;
-import cn.edu.njupt.sourceproducts.utils.StreamUtils;
 import cn.edu.njupt.sourceproducts.utils.ToastUtils;
 
 /**
@@ -96,60 +93,42 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void run() {
-				try {
-					String path = ConstantValue.IP_ADDRESS + "/LoginServlet";
-					String data = "username=" + mUsername + "&password="
-							+ mPassword;
+				String path = ConstantValue.IP_ADDRESS + "/LoginServlet";
+				String data = "username=" + mUsername + "&password="
+						+ mPassword;
 
-					URL url = new URL(path);
-					HttpURLConnection conn = (HttpURLConnection) url
-							.openConnection();
+				String result = HttpUtils.getStringByPost(path, data);
 
-					conn.setRequestMethod("POST");
-					conn.setConnectTimeout(5000);
-					conn.setRequestProperty("Content-Type",
-							"application/x-www-form-urlencoded");
-					conn.setRequestProperty("Content-Length", data.length()
-							+ "");
-					conn.setDoOutput(true);
+				if (result.equals("user")) {
+					Message msg = Message.obtain();
+					msg.obj = "用户不存在！";
+					mHandler.sendMessage(msg);
 
-					conn.getOutputStream().write(data.getBytes());
+				} else if (result.equals("pwd")) {
+					Message msg = Message.obtain();
+					msg.obj = "密码错误！";
+					mHandler.sendMessage(msg);
 
-					if (conn.getResponseCode() == 200) {
-						InputStream in = conn.getInputStream();
-						String result = StreamUtils.streamToString(in);
+				} else {
+					try {
+						JSONObject obj = new JSONObject(result);
+						int uid = obj.getInt("uid");
+						String username = obj.getString("username");
 
-						if (result.startsWith("user")) {
-							Message msg = Message.obtain();
-							msg.obj = "用户不存在！";
-							mHandler.sendMessage(msg);
+						SPUtils.putInt(getApplicationContext(),
+								ConstantValue.UID, uid);
+						SPUtils.putString(getApplicationContext(),
+								ConstantValue.USERNAME, username);
+						SPUtils.putBoolean(getApplicationContext(),
+								ConstantValue.HAS_LOGGED_IN, true);
 
-						} else if (result.startsWith("pwd")) {
-							Message msg = Message.obtain();
-							msg.obj = "密码错误！";
-							mHandler.sendMessage(msg);
+						setResult(10,
+								new Intent().putExtra("username", username));
 
-						} else {
-							JSONObject obj = new JSONObject(result);
-
-							int uid = obj.getInt("uid");
-							String username = obj.getString("username");
-
-							SPUtils.putInt(getApplicationContext(),
-									ConstantValue.UID, uid);
-							SPUtils.putString(getApplicationContext(),
-									ConstantValue.USERNAME, username);
-							SPUtils.putBoolean(getApplicationContext(),
-									ConstantValue.HAS_LOGGED_IN, true);
-
-							setResult(10,
-									new Intent().putExtra("username", username));
-
-							finish();
-						}
+						finish();
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		}.start();
