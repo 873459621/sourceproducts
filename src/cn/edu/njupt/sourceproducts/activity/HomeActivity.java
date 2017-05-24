@@ -1,17 +1,18 @@
-package com.nupt.sourceproducts.activity;
+package cn.edu.njupt.sourceproducts.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.nupt.sourceproducts.R;
-import com.nupt.sourceproducts.fragment.CategoryFragment;
-import com.nupt.sourceproducts.fragment.HomeFragment;
-import com.nupt.sourceproducts.fragment.MeFragment;
-import com.nupt.sourceproducts.fragment.ShopcartFragment;
+import cn.edu.njupt.sourceproducts.R;
+import cn.edu.njupt.sourceproducts.fragment.CategoryFragment;
+import cn.edu.njupt.sourceproducts.fragment.HomeFragment;
+import cn.edu.njupt.sourceproducts.fragment.MeFragment;
+import cn.edu.njupt.sourceproducts.fragment.ShopcartFragment;
 
 /**
  * 显示主界面的Activity
@@ -30,12 +31,32 @@ public class HomeActivity extends Activity implements OnClickListener {
 	private ShopcartFragment fragment_shopcart;
 	private MeFragment fragment_me;
 
+	private FragmentManager mFragmentManager;
+	private FragmentTransaction mTransaction;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
 		initUI();
+		initHome();
+	}
+
+	/**
+	 * 加载主界面的Fragment
+	 */
+	private void initHome() {
+		mFragmentManager = getFragmentManager();
+		mTransaction = mFragmentManager.beginTransaction();
+
+		resetSelectedState();
+		tv_home.setSelected(true);
+
+		fragment_home = new HomeFragment();
+		mTransaction.add(R.id.fl_container, fragment_home);
+
+		mTransaction.commit();
 	}
 
 	/**
@@ -86,10 +107,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		FragmentTransaction transaction = getFragmentManager()
-				.beginTransaction();
+		mTransaction = mFragmentManager.beginTransaction();
 
-		hideAllFragments(transaction);
+		hideAllFragments(mTransaction);
 
 		switch (v.getId()) {
 
@@ -99,9 +119,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			if (fragment_home == null) {
 				fragment_home = new HomeFragment();
-				transaction.add(R.id.fl_container, fragment_home);
+				mTransaction.add(R.id.fl_container, fragment_home);
 			} else {
-				transaction.show(fragment_home);
+				mTransaction.show(fragment_home);
 			}
 			break;
 
@@ -111,9 +131,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			if (fragment_category == null) {
 				fragment_category = new CategoryFragment();
-				transaction.add(R.id.fl_container, fragment_category);
+				mTransaction.add(R.id.fl_container, fragment_category);
 			} else {
-				transaction.show(fragment_category);
+				mTransaction.show(fragment_category);
 			}
 			break;
 
@@ -123,9 +143,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			if (fragment_shopcart == null) {
 				fragment_shopcart = new ShopcartFragment();
-				transaction.add(R.id.fl_container, fragment_shopcart);
+				mTransaction.add(R.id.fl_container, fragment_shopcart);
 			} else {
-				transaction.show(fragment_shopcart);
+				mTransaction.show(fragment_shopcart);
 			}
 			break;
 
@@ -135,14 +155,14 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			if (fragment_me == null) {
 				fragment_me = new MeFragment();
-				transaction.add(R.id.fl_container, fragment_me);
+				mTransaction.add(R.id.fl_container, fragment_me);
 			} else {
-				transaction.show(fragment_me);
+				mTransaction.show(fragment_me);
 			}
 			break;
 		}
 
-		transaction.commit();
+		mTransaction.commit();
 	}
 
 }

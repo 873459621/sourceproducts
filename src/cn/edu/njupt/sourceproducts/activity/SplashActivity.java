@@ -1,4 +1,4 @@
-package com.nupt.sourceproducts.activity;
+package cn.edu.njupt.sourceproducts.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 
-import com.nupt.sourceproducts.R;
+import cn.edu.njupt.sourceproducts.R;
 
 /**
  * 显示载入界面的Activity

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
-    tools:context="com.nupt.sourceproducts.activity.SplashActivity" >
+    tools:context="cn.edu.njupt.sourceproducts.activity.SplashActivity" >
 
     <TextView
         android:layout_width="wrap_content"

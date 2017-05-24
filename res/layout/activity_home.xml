@@ -18,7 +18,7 @@
             android:drawableTop="@drawable/selector_home_icon"
             android:gravity="center"
             android:padding="6dp"
-            android:text="主页"
+            android:text="首页"
             android:textColor="@drawable/selector_menu_text" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:drawableTop="@drawable/selector_category_icon"
             android:gravity="center"
             android:padding="6dp"
-            android:text="类目"
+            android:text="分类"
             android:textColor="@drawable/selector_menu_text" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:drawableTop="@drawable/selector_me_icon"
             android:gravity="center"
             android:padding="6dp"
-            android:text="我"
+            android:text="我的"
             android:textColor="@drawable/selector_menu_text" />
     </LinearLayout>
 
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/ll_menu"
-        android:background="@color/bg_gray" />
+        android:background="@color/line_gray" />
 
     <FrameLayout
         android:id="@+id/fl_container"

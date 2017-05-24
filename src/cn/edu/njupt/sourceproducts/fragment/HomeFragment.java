@@ -1,4 +1,4 @@
-package com.nupt.sourceproducts.fragment;
+package cn.edu.njupt.sourceproducts.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,8 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nupt.sourceproducts.R;
+import cn.edu.njupt.sourceproducts.R;
 
+/**
+ * 显示首页的Fragment
+ * 
+ * @author hhw
+ */
 public class HomeFragment extends Fragment {
 
 	@Override
