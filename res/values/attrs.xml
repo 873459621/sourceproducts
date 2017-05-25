@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="cn.edu.njupt.sourceproducts.view.InputItemView">
+        <attr name="name" format="string" />
+        <attr name="hint" format="string" />
+        <attr name="inputType" format="string" />
+    </declare-styleable>
+
+</resources>

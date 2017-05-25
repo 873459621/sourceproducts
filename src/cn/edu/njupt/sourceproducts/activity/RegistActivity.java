@@ -9,11 +9,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import cn.edu.njupt.sourceproducts.R;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
 import cn.edu.njupt.sourceproducts.utils.HttpUtils;
 import cn.edu.njupt.sourceproducts.utils.ToastUtils;
+import cn.edu.njupt.sourceproducts.view.InputItemView;
 
 /**
  * 显示用户注册界面的Activity
@@ -22,11 +22,11 @@ import cn.edu.njupt.sourceproducts.utils.ToastUtils;
  */
 public class RegistActivity extends Activity {
 
-	private EditText et_username;
-	private EditText et_password;
-	private EditText et_confirm_password;
-	private EditText et_email;
-	private EditText et_phone;
+	private InputItemView iiv_username;
+	private InputItemView iiv_password;
+	private InputItemView iiv_confirm_password;
+	private InputItemView iiv_email;
+	private InputItemView iiv_phone;
 	private Button btn_regist;
 
 	private String mUsername;
@@ -55,11 +55,11 @@ public class RegistActivity extends Activity {
 	 * 初始化UI控件
 	 */
 	private void initUI() {
-		et_username = (EditText) findViewById(R.id.et_username);
-		et_password = (EditText) findViewById(R.id.et_password);
-		et_confirm_password = (EditText) findViewById(R.id.et_confirm_password);
-		et_email = (EditText) findViewById(R.id.et_email);
-		et_phone = (EditText) findViewById(R.id.et_phone);
+		iiv_username = (InputItemView) findViewById(R.id.iiv_username);
+		iiv_password = (InputItemView) findViewById(R.id.iiv_password);
+		iiv_confirm_password = (InputItemView) findViewById(R.id.iiv_confirm_password);
+		iiv_email = (InputItemView) findViewById(R.id.iiv_email);
+		iiv_phone = (InputItemView) findViewById(R.id.iiv_phone);
 		btn_regist = (Button) findViewById(R.id.btn_regist);
 
 		btn_regist.setOnClickListener(new OnClickListener() {
@@ -84,9 +84,9 @@ public class RegistActivity extends Activity {
 				String path = ConstantValue.IP_ADDRESS + "/RegistServlet";
 				String data = "username=" + mUsername + "&password="
 						+ mPassword + "&email=" + mEmail + "&phone=" + mPhone;
-				
+
 				String result = HttpUtils.getStringByPost(path, data);
-				
+
 				if (result.startsWith("user")) {
 					Message msg = Message.obtain();
 					msg.obj = "用户已经存在！";
@@ -109,11 +109,11 @@ public class RegistActivity extends Activity {
 	 * @return 返回true代表没有问题，返回false代表有问题
 	 */
 	private boolean checkET() {
-		mUsername = et_username.getText().toString().trim();
-		mPassword = et_password.getText().toString().trim();
-		mConfirmPassword = et_confirm_password.getText().toString().trim();
-		mEmail = et_email.getText().toString().trim();
-		mPhone = et_phone.getText().toString().trim();
+		mUsername = iiv_username.getText();
+		mPassword = iiv_password.getText();
+		mConfirmPassword = iiv_confirm_password.getText();
+		mEmail = iiv_email.getText();
+		mPhone = iiv_phone.getText();
 
 		if (TextUtils.isEmpty(mUsername) || TextUtils.isEmpty(mPassword)
 				|| TextUtils.isEmpty(mConfirmPassword)

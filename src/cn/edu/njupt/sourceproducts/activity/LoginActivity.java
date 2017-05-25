@@ -13,13 +13,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import cn.edu.njupt.sourceproducts.R;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
 import cn.edu.njupt.sourceproducts.utils.HttpUtils;
 import cn.edu.njupt.sourceproducts.utils.SPUtils;
 import cn.edu.njupt.sourceproducts.utils.ToastUtils;
+import cn.edu.njupt.sourceproducts.view.InputItemView;
 
 /**
  * 显示登录界面的Activity
@@ -28,8 +28,8 @@ import cn.edu.njupt.sourceproducts.utils.ToastUtils;
  */
 public class LoginActivity extends Activity {
 
-	private EditText et_username;
-	private EditText et_password;
+	private InputItemView iiv_username;
+	private InputItemView iiv_password;
 	private Button btn_login;
 	private TextView tv_regist;
 
@@ -56,13 +56,13 @@ public class LoginActivity extends Activity {
 	 * 初始化UI控件
 	 */
 	private void initUI() {
-		et_username = (EditText) findViewById(R.id.et_username);
-		et_password = (EditText) findViewById(R.id.et_password);
+		iiv_username = (InputItemView) findViewById(R.id.iiv_username);
+		iiv_password = (InputItemView) findViewById(R.id.iiv_password);
 		btn_login = (Button) findViewById(R.id.btn_login);
 		tv_regist = (TextView) findViewById(R.id.tv_regist);
 
 		mUsername = SPUtils.getString(this, ConstantValue.USERNAME, null);
-		et_username.setText(mUsername);
+		iiv_username.setText(mUsername);
 
 		btn_login.setOnClickListener(new OnClickListener() {
 
@@ -126,6 +126,7 @@ public class LoginActivity extends Activity {
 								new Intent().putExtra("username", username));
 
 						finish();
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -140,8 +141,8 @@ public class LoginActivity extends Activity {
 	 * @return 返回true代表没有问题，返回false代表有问题
 	 */
 	private boolean checkET() {
-		mUsername = et_username.getText().toString().trim();
-		mPassword = et_password.getText().toString().trim();
+		mUsername = iiv_username.getText();
+		mPassword = iiv_password.getText();
 
 		if (TextUtils.isEmpty(mUsername) || TextUtils.isEmpty(mPassword)) {
 			ToastUtils.show(getApplicationContext(), "用户名或密码不能为空！");

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sourceproducts="http://schemas.android.com/apk/res/cn.edu.njupt.sourceproducts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -8,145 +9,42 @@
         style="@style/TitleStyle"
         android:text="用户注册" />
 
-    <LinearLayout
+    <cn.edu.njupt.sourceproducts.view.InputItemView
+        android:id="@+id/iiv_username"
+        sourceproducts:name="账户"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
+        sourceproducts:hint="请输入会员帐号" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="帐户"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="请输入会员帐号"
-            android:inputType="text" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
-
-    <LinearLayout
+    <cn.edu.njupt.sourceproducts.view.InputItemView
+        android:id="@+id/iiv_password"
+        sourceproducts:name="登录密码"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
+        sourceproducts:hint="请输入密码"
+        sourceproducts:inputType="textPassword" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="登录密码"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="请输入密码"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
-
-    <LinearLayout
+    <cn.edu.njupt.sourceproducts.view.InputItemView
+        android:id="@+id/iiv_confirm_password"
+        sourceproducts:name="确认密码"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
+        sourceproducts:hint="请输入密码"
+        sourceproducts:inputType="textPassword" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="确认密码"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_confirm_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="请输入密码"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
-
-    <LinearLayout
+    <cn.edu.njupt.sourceproducts.view.InputItemView
+        android:id="@+id/iiv_email"
+        sourceproducts:name="邮箱"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
+        sourceproducts:hint="请输入邮箱地址" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="邮箱"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="请输入邮箱地址"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
-
-    <LinearLayout
+    <cn.edu.njupt.sourceproducts.view.InputItemView
+        android:id="@+id/iiv_phone"
+        sourceproducts:name="手机号码"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="手机号码"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="请输入手机号码"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
+        sourceproducts:hint="请输入手机号码" />
 
     <Button
         android:id="@+id/btn_regist"

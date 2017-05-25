@@ -67,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="待fa货"
+            android:text="待发货"
             android:textColor="@drawable/selector_order_text" />
 
         <TextView
