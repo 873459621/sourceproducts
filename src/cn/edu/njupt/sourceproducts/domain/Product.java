@@ -16,16 +16,16 @@ public class Product {
 
 	public Product(int pid, String pname, double price, String image,
 			String des, int cid) {
-		this(pid, pname, price, image);
-		this.des = des;
+		this(pid, pname, price, image, des);
 		this.cid = cid;
 	}
 
-	public Product(int pid, String pname, double price, String image) {
+	public Product(int pid, String pname, double price, String image, String des) {
 		this.pid = pid;
 		this.pname = pname;
 		this.price = price;
 		this.image = image;
+		this.des = des;
 	}
 
 	public int getPid() {

@@ -27,6 +27,8 @@
         <activity android:name="cn.edu.njupt.sourceproducts.activity.HomeActivity" />
         <activity android:name="cn.edu.njupt.sourceproducts.activity.LoginActivity" />
         <activity android:name="cn.edu.njupt.sourceproducts.activity.RegistActivity" />
+        <activity android:name="cn.edu.njupt.sourceproducts.activity.ProductActivity" />
+        <activity android:name="cn.edu.njupt.sourceproducts.activity.SearchActivity" />
     </application>
 
 </manifest>

@@ -50,17 +50,19 @@ public class ProductDao {
 		List<Product> productList = new ArrayList<Product>();
 
 		try {
-			JSONArray array = new JSONArray(json);
+			JSONObject obj = new JSONObject(json);
+			JSONArray array = obj.getJSONArray("productList");
 
 			for (int i = 0; i < array.length(); i++) {
-				JSONObject obj = array.getJSONObject(i);
+				obj = array.getJSONObject(i);
 
 				int pid = obj.getInt("pid");
 				String pname = obj.getString("pname");
 				double price = obj.getDouble("price");
 				String image = obj.getString("image");
+				String des = obj.getString("des");
 
-				productList.add(new Product(pid, pname, price, image));
+				productList.add(new Product(pid, pname, price, image, des));
 			}
 
 		} catch (JSONException e) {

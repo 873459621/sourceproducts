@@ -10,7 +10,7 @@ public class ConstantValue {
 	/**
 	 * 服务器的IP地址
 	 */
-	public static final String IP_ADDRESS = "http://192.168.191.1:8080/SourceProductsServer";
+	public static final String IP_ADDRESS = "http://192.168.1.13:8080/SourceProductsServer";
 
 	/**
 	 * 存储SP中用户名的键名
