@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical" >
+    android:background="@color/bg_white" >
 
     <TextView
+        android:id="@+id/tv_title"
         style="@style/TitleStyle"
         android:text="购物车" />
+
+    <LinearLayout
+        android:id="@+id/ll_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:padding="0dp"
+            android:text="合计："
+            android:textColor="@color/text_black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:padding="0dp"
+            android:text="¥ 188.0"
+            android:textColor="@color/text_red"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_buy"
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_tv_buy_bg"
+            android:gravity="center"
+            android:text="结算"
+            android:textColor="@color/text_white" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_shopcart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_pay"
+        android:layout_below="@id/tv_title" >
     </ListView>
 
-</LinearLayout>
+</RelativeLayout>

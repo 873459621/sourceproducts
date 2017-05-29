@@ -141,12 +141,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 			resetSelectedState();
 			tv_shopcart.setSelected(true);
 
-			if (fragment_shopcart == null) {
-				fragment_shopcart = new ShopcartFragment();
-				mTransaction.add(R.id.fl_container, fragment_shopcart);
-			} else {
-				mTransaction.show(fragment_shopcart);
-			}
+			fragment_shopcart = new ShopcartFragment();
+			mTransaction.add(R.id.fl_container, fragment_shopcart);
 			break;
 
 		case R.id.tv_me:

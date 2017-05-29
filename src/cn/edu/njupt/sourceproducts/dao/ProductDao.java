@@ -24,11 +24,9 @@ public class ProductDao {
 	}
 
 	/**
-	 * 获取BlacklistDao的实例
+	 * 获取ProductDao的实例
 	 * 
-	 * @param context
-	 *            上下文
-	 * @return BlacklistDao的实例
+	 * @return ProductDao的实例
 	 */
 	public static ProductDao getInstance() {
 		if (mInstance == null) {
@@ -61,8 +59,10 @@ public class ProductDao {
 				double price = obj.getDouble("price");
 				String image = obj.getString("image");
 				String des = obj.getString("des");
+				int cid = obj.getInt("cid");
 
-				productList.add(new Product(pid, pname, price, image, des));
+				productList
+						.add(new Product(pid, pname, price, image, des, cid));
 			}
 
 		} catch (JSONException e) {

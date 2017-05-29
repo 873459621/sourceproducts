@@ -41,7 +41,7 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:text="全部订单>"
-            android:textColor="@color/text_gray"
+            android:textColor="@drawable/selector_clickable_text"
             android:textSize="15sp" />
     </RelativeLayout>
 
@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="待付款"
-            android:textColor="@drawable/selector_order_text" />
+            android:textColor="@drawable/selector_selectable_text" />
 
         <TextView
             android:id="@+id/tv_unfilled"
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="待发货"
-            android:textColor="@drawable/selector_order_text" />
+            android:textColor="@drawable/selector_selectable_text" />
 
         <TextView
             android:id="@+id/tv_unrecrived"
@@ -77,7 +77,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="待收货"
-            android:textColor="@drawable/selector_order_text" />
+            android:textColor="@drawable/selector_selectable_text" />
 
         <TextView
             android:id="@+id/tv_unvalued"
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="待评价"
-            android:textColor="@drawable/selector_order_text" />
+            android:textColor="@drawable/selector_selectable_text" />
     </LinearLayout>
 
     <View

@@ -28,21 +28,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:id="@+id/ll_category"
+        <ListView
+            android:id="@+id/lv_category"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_food1"
-                style="@style/TextStyle"
-                android:layout_width="match_parent"
-                android:text="食物"
-                android:textColor="@drawable/selector_category_text" />
-        </LinearLayout>
+            android:layout_weight="1" >
+        </ListView>
 
         <View style="@style/VLineStyle" />
 

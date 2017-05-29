@@ -12,7 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import cn.edu.njupt.sourceproducts.R;
+import cn.edu.njupt.sourceproducts.db.dao.ItemDao;
+import cn.edu.njupt.sourceproducts.db.domain.Item;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
+import cn.edu.njupt.sourceproducts.utils.ToastUtils;
 
 /**
  * 显示产品信息界面的Activity
@@ -33,7 +36,11 @@ public class ProductActivity extends Activity {
 	private TextView tv_shopcart;
 	private TextView tv_buy;
 
-	private String mPid;
+	private int mPid;
+	private double mPrice;
+	private String mPname;
+	private String mDes;
+	private String mImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +57,19 @@ public class ProductActivity extends Activity {
 	private void initData() {
 		Intent intent = getIntent();
 
-		mPid = intent.getStringExtra("pid");
+		mPid = intent.getIntExtra("pid", 0);
+		mPname = intent.getStringExtra("pname");
+		mPrice = intent.getDoubleExtra("price", 0.0);
+		mDes = intent.getStringExtra("des");
+		mImage = intent.getStringExtra("image");
 
-		String url = ConstantValue.IP_ADDRESS + "/"
-				+ intent.getStringExtra("image");
+		String url = ConstantValue.IP_ADDRESS + "/" + mImage;
 		siv_image.setImageUrl(url);
 
 		et_number.setText("0");
-		tv_pname.setText(intent.getStringExtra("pname"));
-		tv_price.setText("¥ " + intent.getDoubleExtra("price", 0));
-		tv_des.setText(intent.getStringExtra("des"));
+		tv_pname.setText(mPname);
+		tv_price.setText("¥ " + mPrice);
+		tv_des.setText(mDes);
 	}
 
 	/**
@@ -100,8 +110,10 @@ public class ProductActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
+				Intent intent = new Intent(getApplicationContext(),
+						LocationActivity.class);
+				intent.putExtra("pid", mPid);
+				startActivity(intent);
 			}
 		});
 
@@ -109,8 +121,26 @@ public class ProductActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				int number = getNumber();
+				if (number <= 0) {
+					ToastUtils.show(getApplicationContext(), "产品数目不能为0！");
+				} else {
+					ItemDao itemDao = ItemDao
+							.getInstance(getApplicationContext());
 
+					int pNumber = itemDao.getNumber(mPid);
+					if (pNumber > 0) {
+						pNumber += number;
+						itemDao.update(mPid, pNumber, pNumber * mPrice);
+					} else {
+						itemDao.insert(new Item(mPid, mPname, mPrice, mImage,
+								mDes, number, number * mPrice));
+					}
+
+					ToastUtils.show(getApplicationContext(), "加入购物车成功！");
+
+					finish();
+				}
 			}
 		});
 

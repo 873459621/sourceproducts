@@ -1,0 +1,8 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_category"
+    style="@style/TextStyle"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:text="分类"
+    android:textColor="@drawable/selector_black_clickable_text"
+    android:textSize="15sp" />

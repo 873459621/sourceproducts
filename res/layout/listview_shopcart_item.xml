@@ -3,10 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/selector_delete_bg" />
+
     <com.loopj.android.image.SmartImageView
         android:id="@+id/siv_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_toRightOf="@id/iv_delete"
         android:background="@drawable/ic_launcher"
         android:paddingBottom="4dp" />
 
@@ -20,8 +29,16 @@
         android:id="@+id/tv_price"
         style="@style/TextStyle"
         android:layout_alignBottom="@id/siv_image"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/siv_image"
         android:text="¥ 188.0"
         android:textColor="@color/text_red" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        style="@style/TextStyle"
+        android:layout_alignBottom="@id/siv_image"
+        android:layout_alignParentRight="true"
+        android:text="× 1"
+        android:textColor="@color/text_black" />
 
 </RelativeLayout>

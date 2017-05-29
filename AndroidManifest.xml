@@ -29,6 +29,7 @@
         <activity android:name="cn.edu.njupt.sourceproducts.activity.RegistActivity" />
         <activity android:name="cn.edu.njupt.sourceproducts.activity.ProductActivity" />
         <activity android:name="cn.edu.njupt.sourceproducts.activity.SearchActivity" />
+        <activity android:name="cn.edu.njupt.sourceproducts.activity.LocationActivity" />
     </application>
 
 </manifest>

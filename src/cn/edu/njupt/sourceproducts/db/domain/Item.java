@@ -1,27 +1,29 @@
-package cn.edu.njupt.sourceproducts.domain;
+package cn.edu.njupt.sourceproducts.db.domain;
 
 /**
- * 封装产品的Javabean
+ * 购物车的bean对象
  * 
  * @author hhw
  */
-public class Product {
+public class Item {
 
 	private int pid;
 	private String pname;
 	private double price;
 	private String image;
 	private String des;
-	private int cid;
+	private int number;
+	private double subtotal;
 
-	public Product(int pid, String pname, double price, String image,
-			String des, int cid) {
+	public Item(int pid, String pname, double price, String image, String des,
+			int number, double subtotal) {
 		this.pid = pid;
 		this.pname = pname;
 		this.price = price;
 		this.image = image;
 		this.des = des;
-		this.cid = cid;
+		this.number = number;
+		this.subtotal = subtotal;
 	}
 
 	public int getPid() {
@@ -64,12 +66,20 @@ public class Product {
 		this.des = des;
 	}
 
-	public int getCid() {
-		return cid;
+	public int getNumber() {
+		return number;
 	}
 
-	public void setCid(int cid) {
-		this.cid = cid;
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
 	}
 
 }

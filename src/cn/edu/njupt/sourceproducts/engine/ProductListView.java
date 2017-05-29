@@ -1,9 +1,9 @@
-package cn.edu.njupt.sourceproducts.activity;
+package cn.edu.njupt.sourceproducts.engine;
 
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
@@ -16,9 +16,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import cn.edu.njupt.sourceproducts.R;
-import cn.edu.njupt.sourceproducts.dao.ProductDao;
+import cn.edu.njupt.sourceproducts.activity.ProductActivity;
 import cn.edu.njupt.sourceproducts.domain.Product;
-import cn.edu.njupt.sourceproducts.engine.ConstantValue;
 
 import com.loopj.android.image.SmartImageView;
 
@@ -27,13 +26,14 @@ import com.loopj.android.image.SmartImageView;
  * 
  * @author hhw
  */
-public abstract class ProductListActivity extends Activity {
+public class ProductListView {
 
 	private ListView lv_products;
 
-	private ProductDao mDao;
 	private MyAdapter mAdapter;
 	private List<Product> mProductList;
+	private ProductData mPD;
+	private Context mContext;
 
 	private int mTotal;
 	private boolean isLoading;
@@ -51,18 +51,16 @@ public abstract class ProductListActivity extends Activity {
 		};
 	};
 
-	@Override
-	public void setContentView(int layoutResID) {
-		super.setContentView(layoutResID);
-		mDao = ProductDao.getInstance();
-		initUI();
-	};
+	public ProductListView(ListView lv, Context context) {
+		initListView(lv);
+		mContext = context;
+	}
 
 	/**
-	 * 初始化UI
+	 * 初始化ListView
 	 */
-	private void initUI() {
-		lv_products = (ListView) findViewById(R.id.lv_products);
+	private void initListView(ListView lv) {
+		lv_products = lv;
 
 		lv_products.setOnItemClickListener(new OnItemClickListener() {
 
@@ -99,7 +97,7 @@ public abstract class ProductListActivity extends Activity {
 	 *            点击的位置
 	 */
 	private void turnToProductActivity(int position) {
-		Intent intent = new Intent(this, ProductActivity.class);
+		Intent intent = new Intent(mContext, ProductActivity.class);
 
 		Product product = mProductList.get(position);
 
@@ -109,26 +107,41 @@ public abstract class ProductListActivity extends Activity {
 		intent.putExtra("des", product.getDes());
 		intent.putExtra("image", product.getImage());
 
-		startActivity(intent);
+		mContext.startActivity(intent);
 	}
 
 	/**
-	 * 加载数据
+	 * 初始化ListView中的数据
+	 * 
+	 * @param pd
+	 *            获取产品数据的接口的实现类
 	 */
-	protected void loadData() {
+	public void setData(ProductData pd) {
+		mPD = pd;
 		isLoading = true;
 		new Thread() {
 
 			public void run() {
+				mProductList = mPD.getProductList(0);
+				mTotal = mPD.getTotal();
 
-				if (mProductList == null) {
-					mProductList = mDao.getProductList(0);
-					mTotal = mDao.getTotal();
-				} else {
-					List<Product> list = mDao.getProductList(mProductList
-							.size());
-					mProductList.addAll(list);
-				}
+				isLoading = false;
+
+				mHandler.sendEmptyMessage(0);
+			};
+		}.start();
+	}
+
+	/**
+	 * 继续加载数据
+	 */
+	private void loadData() {
+		isLoading = true;
+		new Thread() {
+
+			public void run() {
+				List<Product> list = mPD.getProductList(mProductList.size());
+				mProductList.addAll(list);
 
 				isLoading = false;
 
@@ -159,7 +172,7 @@ public abstract class ProductListActivity extends Activity {
 				ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = View.inflate(getApplicationContext(),
+				convertView = View.inflate(mContext,
 						R.layout.listview_product_item, null);
 
 				holder = new ViewHolder();
@@ -192,6 +205,31 @@ public abstract class ProductListActivity extends Activity {
 		public SmartImageView siv_image;
 		public TextView tv_pname;
 		public TextView tv_price;
+	}
+
+	/**
+	 * 获取产品数据的接口
+	 * 
+	 * @author hhw
+	 */
+	public interface ProductData {
+
+		/**
+		 * 根据索引位置，获取产品的List集合
+		 * 
+		 * @param index
+		 *            索引位置
+		 * @return 产品的List集合
+		 */
+		public List<Product> getProductList(int index);
+
+		/**
+		 * 获取产品总数
+		 * 
+		 * @return 产品总数
+		 */
+		public int getTotal();
+
 	}
 
 }
