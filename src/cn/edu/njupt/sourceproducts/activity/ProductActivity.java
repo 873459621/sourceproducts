@@ -1,21 +1,33 @@
 package cn.edu.njupt.sourceproducts.activity;
 
-import com.loopj.android.image.SmartImageView;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import cn.edu.njupt.sourceproducts.R;
+import cn.edu.njupt.sourceproducts.dao.OrderDao;
 import cn.edu.njupt.sourceproducts.db.dao.ItemDao;
 import cn.edu.njupt.sourceproducts.db.domain.Item;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
+import cn.edu.njupt.sourceproducts.utils.MD5Utils;
+import cn.edu.njupt.sourceproducts.utils.SPUtils;
 import cn.edu.njupt.sourceproducts.utils.ToastUtils;
+
+import com.loopj.android.image.SmartImageView;
 
 /**
  * 显示产品信息界面的Activity
@@ -41,6 +53,17 @@ public class ProductActivity extends Activity {
 	private String mPname;
 	private String mDes;
 	private String mImage;
+	private double mTotal;
+	private int mNumber;
+
+	@SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler() {
+
+		public void handleMessage(android.os.Message msg) {
+			ToastUtils.show(getApplicationContext(), "下单成功！");
+			finish();
+		};
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +171,20 @@ public class ProductActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				showDialog();
+				if (getNumber() <= 0) {
+					ToastUtils.show(getApplicationContext(), "产品数目不能为0！");
+				} else {
+					boolean has_logged_in = SPUtils.getBoolean(
+							getApplicationContext(),
+							ConstantValue.HAS_LOGGED_IN, false);
+					if (has_logged_in) {
+						showDialog();
+					} else {
+						startActivity(new Intent(getApplicationContext(),
+								LoginActivity.class));
+						ToastUtils.show(getApplicationContext(), "请先登录！");
+					}
+				}
 			}
 		});
 	}
@@ -170,7 +206,88 @@ public class ProductActivity extends Activity {
 	 * 显示确认密码的对话框
 	 */
 	private void showDialog() {
-		// TODO Auto-generated method stub
+		Builder builder = new AlertDialog.Builder(this);
+		final AlertDialog dialog = builder.create();
+		final View view = View.inflate(this, R.layout.dialog_confirm_pwd, null);
+		dialog.setView(view, 0, 0, 0, 0);
+		dialog.show();
+
+		TextView tv_total = (TextView) view.findViewById(R.id.tv_total);
+		Button btn_confirm = (Button) view.findViewById(R.id.btn_confirm);
+		Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+
+		mNumber = getNumber();
+		mTotal = mPrice * mNumber;
+
+		tv_total.setText("¥ " + mTotal);
+
+		btn_confirm.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				EditText et_confirm_pwd = (EditText) view
+						.findViewById(R.id.et_confirm_pwd);
+				String confirmPwd = et_confirm_pwd.getText().toString().trim();
+
+				if (!TextUtils.isEmpty(confirmPwd)) {
+					confirmPwd = MD5Utils.encode(confirmPwd);
+					String pwd = SPUtils.getString(getApplicationContext(),
+							ConstantValue.PASSWORD, null);
+
+					if (confirmPwd.equals(pwd)) {
+						summitOrder();
+						dialog.dismiss();
+					} else {
+						ToastUtils.show(getApplicationContext(), "密码不一致！");
+					}
+				} else {
+					ToastUtils.show(getApplicationContext(), "请输入密码！");
+				}
+			}
+		});
+
+		btn_cancel.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	}
+
+	/**
+	 * 提交订单到服务端
+	 */
+	private void summitOrder() {
+		new Thread() {
+
+			public void run() {
+				int uid = SPUtils.getInt(getApplicationContext(),
+						ConstantValue.UID, 0);
+
+				JSONObject jsonObject = new JSONObject();
+				try {
+					jsonObject.put("uid", uid);
+					jsonObject.put("total", mTotal);
+					JSONArray jsonArray = new JSONArray();
+					JSONObject obj = new JSONObject();
+					obj.put("pid", mPid);
+					obj.put("number", mNumber);
+					obj.put("subtotal", mTotal);
+					jsonArray.put(obj);
+					jsonObject.put("itemList", jsonArray);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String data = "json=" + jsonObject.toString();
+
+				OrderDao orderDao = OrderDao.getInstance();
+				String result = orderDao.summitOrder(data);
+				if (!TextUtils.isEmpty(result)) {
+					mHandler.sendEmptyMessage(0);
+				}
+			};
+		}.start();
 	}
 
 }

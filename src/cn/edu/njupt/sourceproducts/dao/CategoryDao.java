@@ -42,7 +42,6 @@ public class CategoryDao {
 	 */
 	public List<Category> getCategoryList() {
 		String path = ConstantValue.IP_ADDRESS + "/CategoryServlet";
-
 		return toCategoryList(HttpUtils.getStringByGet(path));
 	}
 
@@ -58,8 +57,8 @@ public class CategoryDao {
 		List<Category> categoryList = new ArrayList<Category>();
 
 		try {
-			JSONObject obj = new JSONObject(json);
-			JSONArray array = obj.getJSONArray("categoryList");
+			JSONObject obj;
+			JSONArray array = new JSONArray(json);
 
 			for (int i = 0; i < array.length(); i++) {
 				obj = array.getJSONObject(i);

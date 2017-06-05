@@ -80,6 +80,17 @@ public class ItemDao {
 	}
 
 	/**
+	 * 清空购物车
+	 */
+	public void clear() {
+		mDB = mHelper.getWritableDatabase();
+
+		mDB.delete("SHOPCART", null, null);
+
+		mDB.close();
+	}
+
+	/**
 	 * 更新购物车中的一个条目
 	 * 
 	 * @param pid

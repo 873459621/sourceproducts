@@ -52,20 +52,24 @@ public class SearchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String text = et_text.getText().toString().trim();
-				productListView.setData(new ProductData() {
+				new Thread() {
+					public void run() {
+						productListView.setData(new ProductData() {
 
-					@Override
-					public int getTotal() {
-						// TODO
-						return mDao.getTotal();
-					}
+							@Override
+							public int getTotal() {
+								// TODO
+								return mDao.getTotal(2);
+							}
 
-					@Override
-					public List<Product> getProductList(int index) {
-						// TODO
-						return mDao.getProductList(index);
-					}
-				});
+							@Override
+							public List<Product> getProductList(int index) {
+								// TODO
+								return mDao.getProductList(index, 2);
+							}
+						});
+					};
+				}.start();
 			}
 		});
 	}

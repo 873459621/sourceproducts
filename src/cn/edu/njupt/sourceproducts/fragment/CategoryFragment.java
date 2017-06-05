@@ -96,22 +96,28 @@ public class CategoryFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO
-				ProductListView productListView = new ProductListView(
+				final int cid = mCategoryList.get(position).getCid();
+
+				final ProductListView productListView = new ProductListView(
 						lv_products, getActivity());
 
-				productListView.setData(new ProductData() {
+				new Thread() {
 
-					@Override
-					public int getTotal() {
-						return mPDao.getTotal();
-					}
+					public void run() {
+						productListView.setData(new ProductData() {
 
-					@Override
-					public List<Product> getProductList(int index) {
-						return mPDao.getProductList(index);
-					}
-				});
+							@Override
+							public int getTotal() {
+								return mPDao.getTotal(cid);
+							}
+
+							@Override
+							public List<Product> getProductList(int index) {
+								return mPDao.getProductList(index, cid);
+							}
+						});
+					};
+				}.start();
 			}
 		});
 	}

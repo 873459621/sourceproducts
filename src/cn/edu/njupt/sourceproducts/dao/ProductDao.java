@@ -48,8 +48,8 @@ public class ProductDao {
 		List<Product> productList = new ArrayList<Product>();
 
 		try {
-			JSONObject obj = new JSONObject(json);
-			JSONArray array = obj.getJSONArray("productList");
+			JSONObject obj;
+			JSONArray array = new JSONArray(json);
 
 			for (int i = 0; i < array.length(); i++) {
 				obj = array.getJSONObject(i);
@@ -87,12 +87,43 @@ public class ProductDao {
 	}
 
 	/**
+	 * 根据指定位置索引值和产品分类ID，获取20个产品的数据
+	 * 
+	 * @param index
+	 *            位置索引值
+	 * @param cid
+	 *            产品分类ID
+	 * @return 20个产品的List集合
+	 */
+	public List<Product> getProductList(int index, int cid) {
+		String path = ConstantValue.IP_ADDRESS
+				+ "/ProductServlet?method=productList&index=" + index + "&cid="
+				+ cid;
+
+		return toProductList(HttpUtils.getStringByGet(path));
+	}
+
+	/**
 	 * 获取产品的总个数
 	 * 
 	 * @return 产品的总个数
 	 */
 	public int getTotal() {
 		String path = ConstantValue.IP_ADDRESS + "/ProductServlet?method=total";
+
+		return Integer.parseInt(HttpUtils.getStringByGet(path));
+	}
+
+	/**
+	 * 根据产品分类ID，获取分类产品的总个数
+	 * 
+	 * @param cid
+	 *            产品分类ID
+	 * @return 分类产品的总个数
+	 */
+	public int getTotal(int cid) {
+		String path = ConstantValue.IP_ADDRESS
+				+ "/ProductServlet?method=total&cid=" + cid;
 
 		return Integer.parseInt(HttpUtils.getStringByGet(path));
 	}

@@ -50,18 +50,23 @@ public class HomeFragment extends Fragment {
 		final ProductListView productListView = new ProductListView(
 				lv_products, getActivity());
 
-		productListView.setData(new ProductData() {
+		new Thread() {
 
-			@Override
-			public int getTotal() {
-				return mDao.getTotal();
-			}
+			public void run() {
+				productListView.setData(new ProductData() {
 
-			@Override
-			public List<Product> getProductList(int index) {
-				return mDao.getProductList(index);
-			}
-		});
+					@Override
+					public int getTotal() {
+						return mDao.getTotal();
+					}
+
+					@Override
+					public List<Product> getProductList(int index) {
+						return mDao.getProductList(index);
+					}
+				});
+			};
+		}.start();
 	}
 
 	/**

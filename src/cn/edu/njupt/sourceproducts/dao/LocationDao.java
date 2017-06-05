@@ -60,8 +60,8 @@ public class LocationDao {
 		List<Location> locationList = new ArrayList<Location>();
 
 		try {
-			JSONObject obj = new JSONObject(json);
-			JSONArray array = obj.getJSONArray("locationList");
+			JSONObject obj;
+			JSONArray array = new JSONArray(json);
 
 			for (int i = 0; i < array.length(); i++) {
 				obj = array.getJSONObject(i);

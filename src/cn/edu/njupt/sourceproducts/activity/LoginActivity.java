@@ -17,6 +17,7 @@ import android.widget.TextView;
 import cn.edu.njupt.sourceproducts.R;
 import cn.edu.njupt.sourceproducts.engine.ConstantValue;
 import cn.edu.njupt.sourceproducts.utils.HttpUtils;
+import cn.edu.njupt.sourceproducts.utils.MD5Utils;
 import cn.edu.njupt.sourceproducts.utils.SPUtils;
 import cn.edu.njupt.sourceproducts.utils.ToastUtils;
 import cn.edu.njupt.sourceproducts.view.InputItemView;
@@ -114,16 +115,24 @@ public class LoginActivity extends Activity {
 						JSONObject obj = new JSONObject(result);
 						int uid = obj.getInt("uid");
 						String username = obj.getString("username");
+						String password = obj.getString("password");
 
 						SPUtils.putInt(getApplicationContext(),
 								ConstantValue.UID, uid);
 						SPUtils.putString(getApplicationContext(),
 								ConstantValue.USERNAME, username);
+						SPUtils.putString(getApplicationContext(),
+								ConstantValue.PASSWORD,
+								MD5Utils.encode(password));
 						SPUtils.putBoolean(getApplicationContext(),
 								ConstantValue.HAS_LOGGED_IN, true);
 
 						setResult(10,
 								new Intent().putExtra("username", username));
+
+						Message msg = Message.obtain();
+						msg.obj = "登录成功！";
+						mHandler.sendMessage(msg);
 
 						finish();
 
