@@ -3,6 +3,7 @@
     xmlns:sourceproducts="http://schemas.android.com/apk/res/cn.edu.njupt.sourceproducts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_white"
     android:orientation="vertical" >
 
     <TextView
